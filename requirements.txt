@@ -1,0 +1,14 @@
+arago-common-base==2.1
+arago-pyactionhandler==2.5
+certifi==2018.4.16
+chardet==3.0.4
+docopt==0.6.2
+gevent==1.2.2
+greenlet==0.4.13
+idna==2.6
+protobuf==3.5.2.post1
+pyzmq==17.0.0
+requests==2.18.4
+six==1.11.0
+urllib3==1.22
+zmq==0.0.0
