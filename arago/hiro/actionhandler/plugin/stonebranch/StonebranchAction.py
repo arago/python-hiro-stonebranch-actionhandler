@@ -22,10 +22,9 @@ class StonebranchAction(Action):
 
     @staticmethod
     def exec_task(parameters: dict) -> TaskInstance:
-        agent = parameters['agent']
         instance_name = parameters['instance']
         client = StonebranchAction.clientRepository[instance_name]
-        task = Task(client=client, agent=agent, name='HIRO action %s' % uuid.uuid1(), parameters=parameters)
+        task = Task(client=client, name='HIRO action %s' % uuid.uuid1(), parameters=parameters)
         client.task_create(task)
         task_instance = client.task_launch(task)
         status = 'UNKNOWN'
