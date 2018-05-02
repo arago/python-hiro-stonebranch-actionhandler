@@ -89,7 +89,7 @@ class StonebranchRestClient(RestClient):
             return 'UNKNOWN'
 
     def task_instance_info(self, instance: TaskInstance):
-        """Non functional since there is no documented REST end oint for it yet"""
+        """Non functional since there is no documented REST end point for it yet"""
         logging.info('Querying task instance info')
         response = self.session.get(
             url='https://%s/resources/taskinstance/status' % self.instance.authority,
