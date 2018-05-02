@@ -8,3 +8,5 @@ Currently implemented interfaces
   * Retrieve Task Instance Status
   * Retrieve Task Instance Output
   * Delete a Task
+
+New Tasks can be setup against an agent and/or agent-cluster or broadcast
