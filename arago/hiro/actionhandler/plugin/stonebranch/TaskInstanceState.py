@@ -1,17 +1,17 @@
-from enum import Enum, auto, unique
+from enum import Enum, unique
 
 
 # TODO
 @unique
 class TaskInstanceState(Enum):
-    SUCCESS = auto()
-    LAUNCH_PENDING = auto()
-    LAUNCH_SUCCESS = auto()
-    LAUNCH_FAILED = auto()
-    SKIPPED = auto()
-    CANCELLED = auto()
-    FINISHED = auto()
-    FAILED = auto()
+    SUCCESS = 0x01
+    LAUNCH_PENDING = 0x02
+    LAUNCH_SUCCESS = 0x03
+    LAUNCH_FAILED = 0x04
+    SKIPPED = 0x05
+    CANCELLED = 0x06
+    FINISHED = 0x07
+    FAILED = 0x08
 
     # 'FINISHED': TaskInstanceState.FINISHED,
     # 'CANCELLED': TaskInstanceState.CANCELLED,
