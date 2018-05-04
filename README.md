@@ -13,6 +13,7 @@ New Tasks can be setup against an agent and/or agent-cluster or broadcast
 
 ## Getting started
 
+- [Python 3.4](https://github.com/pyenv/pyenv)
 - [Create Virtual Environment](https://packaging.python.org/tutorials/installing-packages/#creating-virtual-environments)
 - `pip install git+https://github.com/arago/python-arago-common.git#egg=arago-common-base`
 - `pip install git+https://github.com/arago/python-arago-pyactionhandler.git#egg=arago-pyactionhandler`
