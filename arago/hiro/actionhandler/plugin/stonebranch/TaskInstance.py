@@ -83,14 +83,22 @@ class TaskInstance:
     }
 
     def __init__(self, task: Task):
-        self.task: Task = task
-        self.id: str = None
-        self.stdOut: str = None
-        self.stdErr: str = None
-        self.exitCode: int = None
-        self.message: str = None
-        self.state: TaskInstanceState = None
-        self.status: str = None
+        self.task = task
+        # type: Task
+        self.id = None
+        # type: str
+        self.stdOut = None
+        # type: str
+        self.stdErr = None
+        # type: str
+        self.exitCode = None
+        # type: int
+        self.message = None
+        # type: str
+        self.state = None
+        # type: TaskInstanceState
+        self.status = None
+        # type: str
         pass
 
     @property

@@ -3,9 +3,12 @@ from arago.hiro.actionhandler.plugin.stonebranch import RestClient
 
 class Task:
     def __init__(self, client: RestClient, name: str, parameters: map):
-        self.client: RestClient = client
+        self.client = client
+        # type: RestClient
         self.name = name
-        self.id: str = None
+        # type: str
+        self.id = None
+        # type: str
 
         if 'agent' in parameters:
             self.agent = parameters['agent']

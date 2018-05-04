@@ -8,7 +8,8 @@ from arago.hiro.actionhandler.plugin.stonebranch import TaskInstance, Task
 
 
 class StonebranchAction(Action):
-    clientRepository: dict = {}
+    clientRepository = {}
+    # type: dict
 
     def __call__(self):
         task_instance = self.exec_task(self.parameters)
