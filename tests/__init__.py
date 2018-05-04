@@ -1,8 +1,10 @@
 import logging
 
-from arago.hiro.actionhandler.plugin.stonebranch import StonebranchAction, StonebranchRestClient, StonebranchInstance
+from arago.hiro.actionhandler.plugin.stonebranch import StonebranchRestClient, StonebranchInstance
+from arago.hiro.actionhandler.plugin.stonebranch.action import StonebranchExecUnixCommandAction
 
-StonebranchAction.clientRepository['prototype'] = StonebranchRestClient(StonebranchInstance(
+clientRepository = {}
+clientRepository['prototype'] = StonebranchRestClient(StonebranchInstance(
     host='stonebranch.cloud',
     username='username',
     password='password',
@@ -12,7 +14,8 @@ StonebranchAction.clientRepository['prototype'] = StonebranchRestClient(Stonebra
 def test():
     logging.basicConfig(level=logging.DEBUG)
 
-    StonebranchAction.exec_task({
+    client = clientRepository['prototype']
+    StonebranchExecUnixCommandAction.exec_task(client, {
         'instance': 'prototype',
         'agent': 'name',
         'command': 'true',

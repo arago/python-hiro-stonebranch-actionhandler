@@ -4,15 +4,18 @@ import uuid
 
 from arago.pyactionhandler.action import Action
 
-from arago.hiro.actionhandler.plugin.stonebranch import TaskInstance, Task
+from arago.hiro.actionhandler.plugin.stonebranch import TaskInstance, Task, StonebranchRestClient
 
 
-class StonebranchAction(Action):
-    clientRepository = {}
-    # type: dict
+class StonebranchExecUnixCommandAction(Action):
+    def __init__(self, num, node, zmq_info, timeout, parameters, client_repository):
+        super().__init__(num, node, zmq_info, timeout, parameters)
+        self.client_repository = client_repository
 
     def __call__(self):
-        task_instance = self.exec_task(self.parameters)
+        instance_name = self.parameters['instance']
+        client = self.client_repository[instance_name]
+        task_instance = self.exec_task(client, self.parameters)
 
         self.output = task_instance.stdOut
         self.error_output = task_instance.stdErr
@@ -22,9 +25,7 @@ class StonebranchAction(Action):
         pass
 
     @staticmethod
-    def exec_task(parameters: dict) -> TaskInstance:
-        instance_name = parameters['instance']
-        client = StonebranchAction.clientRepository[instance_name]
+    def exec_task(client: StonebranchRestClient, parameters: dict) -> TaskInstance:
         task = Task(client=client, name='HIRO action %s' % uuid.uuid1(), parameters=parameters)
         client.task_create(task)
         task_instance = client.task_launch(task)
