@@ -39,7 +39,7 @@ distutils.core.setup(
         'requests',
     ],
     dependency_links=[
-        'git+https://github.com/arago/python-arago-common.git@96c1618fc8ab861951930f768d02cb25e2adf9dd#egg=arago-common-base',
-        'git+https://github.com/arago/python-arago-pyactionhandler.git@25bed7c011f86615d97ec366c806c5269089aedd#egg=arago-pyactionhandler',
+        'git+https://github.com/arago/python-arago-common.git@96c1618fc8ab861951930f768d02cb25e2adf9dd#egg=arago-common-base-2.1',
+        'git+https://github.com/166MMX/python-arago-pyactionhandler.git@abd1f97975e64269f88940d9ecfebc07e4e76d20#egg=arago-pyactionhandler-2.5',
     ],
 )
