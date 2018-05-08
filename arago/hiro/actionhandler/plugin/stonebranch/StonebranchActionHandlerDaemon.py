@@ -34,3 +34,10 @@ class StonebranchActionHandlerDaemon(ActionHandlerDaemon):
         return {
             "ExecuteCommand": Capability(StonebranchExecUnixCommandAction, client_repository=client_repository)
         }
+
+    @staticmethod
+    def main() -> int:
+        args = ActionHandlerDaemon.args()
+        daemon = StonebranchActionHandlerDaemon(args['--pidfile'], debug=args['--debug'])
+        daemon.control(args)
+        return 0

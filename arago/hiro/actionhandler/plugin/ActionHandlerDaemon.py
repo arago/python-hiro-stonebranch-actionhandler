@@ -8,6 +8,7 @@ import gevent
 from arago.common.daemon import daemon as Daemon
 from arago.pyactionhandler.handler import SyncHandler
 from arago.pyactionhandler.worker_collection import WorkerCollection
+from docopt import docopt
 
 
 class ActionHandlerDaemon(Daemon):
@@ -109,3 +110,23 @@ class ActionHandlerDaemon(Daemon):
             zmq_url=self.handler_config.get('ActionHandler', 'ZMQ_URL'),
             auth=self.zmq_auth
         )]
+
+    def control(self, args):
+        if args['start']:
+            self.start()
+        elif args['stop']:
+            self.stop()
+        elif args['restart']:
+            self.restart()
+
+    @staticmethod
+    def args() -> docopt:
+        usage = """Usage:
+          {progname} [options] (start|stop|restart)
+        Options:
+          --debug            do not run as daemon and log to stderr
+          --pidfile=PIDFILE  Specify pid file [default: /var/run/{progname}.pid]
+          -h --help          Show this help screen
+        """.format(progname=os.path.basename(sys.argv[0]))
+
+        return docopt(usage)  # see http://docopt.org

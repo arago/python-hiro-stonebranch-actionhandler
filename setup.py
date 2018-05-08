@@ -24,7 +24,8 @@ distutils.core.setup(
     ],
     entry_points={
         'console_scripts': [
-            'stonebranch-actionhandler = arago.hiro.actionhandler.plugin.stonebranch.StonebranchActionHandlerDaemon:main',
+            'stonebranch-actionhandler ='
+            ' arago.hiro.actionhandler.plugin.stonebranch.StonebranchActionHandlerDaemon:StonebranchActionHandlerDaemon.main',
         ],
     },
     namespace_packages=[
