@@ -1,5 +1,5 @@
-arago-common-base==2.1
-arago-pyactionhandler==2.5
+git+https://github.com/arago/python-arago-common.git@96c1618fc8ab861951930f768d02cb25e2adf9dd#egg=arago-common-base
+git+https://github.com/arago/python-arago-pyactionhandler.git@25bed7c011f86615d97ec366c806c5269089aedd#egg=arago-pyactionhandler
 certifi==2018.4.16
 chardet==3.0.4
 docopt==0.6.2
