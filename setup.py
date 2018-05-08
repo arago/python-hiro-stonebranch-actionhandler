@@ -28,10 +28,7 @@ distutils.core.setup(
             ' arago.hiro.actionhandler.plugin.stonebranch.StonebranchActionHandlerDaemon:StonebranchActionHandlerDaemon.main',
         ],
     },
-    namespace_packages=[
-        'arago',
-        'arago.hiro',
-        'arago.hiro.actionhandler',
+    packages=[
         'arago.hiro.actionhandler.plugin',
         'arago.hiro.actionhandler.plugin.stonebranch',
         'arago.hiro.actionhandler.plugin.stonebranch.action',
