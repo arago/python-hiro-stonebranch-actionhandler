@@ -19,3 +19,15 @@ New Tasks can be setup against an agent and/or agent-cluster or broadcast
 - `pip install git+https://github.com/arago/python-arago-pyactionhandler.git#egg=arago-pyactionhandler`
 - [Install a list of requirements specified in a Requirements File.](https://packaging.python.org/tutorials/installing-packages/#requirements-files)
 - [Package project](https://packaging.python.org/tutorials/distributing-packages/#packaging-your-project)
+
+## Building with pax
+```
+virtualenv pex
+./pex/bin/pip install pex
+
+virtualenv build
+./build/bin/pip install --upgrade pip wheel
+./build/bin/pip wheel --wheel-dir=./wheelhouse --process-dependency-links git+https://github.com/arago/python-hiro-stonebranch-actionhandler.git#egg=arago-hiro-actionhandler-stonebranch
+
+./pex/bin/pex "--python-shebang=/usr/bin/env python3" --no-index --find-links=wheelhouse arago-hiro-actionhandler-stonebranch --entry-point=arago.hiro.actionhandler.plugin.stonebranch.StonebranchActionHandlerDaemon:StonebranchActionHandlerDaemon.main --output-file=stonebranch-actionhandler.pex
+```
