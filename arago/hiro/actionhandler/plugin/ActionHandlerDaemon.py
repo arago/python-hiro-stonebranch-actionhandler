@@ -122,11 +122,12 @@ class ActionHandlerDaemon(Daemon):
     @staticmethod
     def args() -> docopt:
         usage = """Usage:
-          {progname} [options] (start|stop|restart)
-        Options:
-          --debug            do not run as daemon and log to stderr
-          --pidfile=PIDFILE  Specify pid file [default: /var/run/{progname}.pid]
-          -h --help          Show this help screen
+  {progname} [options] (start|stop|restart)
+  
+Options:
+  --debug            do not run as daemon and log to stderr
+  --pidfile=PIDFILE  Specify pid file [default: /var/run/{progname}.pid]
+  -h --help          Show this help screen
         """.format(progname=os.path.basename(sys.argv[0]))
 
         return docopt(usage)  # see http://docopt.org
