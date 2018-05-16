@@ -13,6 +13,7 @@ distutils.core.setup(
     description='Arago HIRO ActionHandler plugin for Stonebranch',
     license='MIT',
     url='https://github.com/arago/python-hiro-stonebranch-actionhandler',
+    python_requires='>=3.4',
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Topic :: Utilities',
