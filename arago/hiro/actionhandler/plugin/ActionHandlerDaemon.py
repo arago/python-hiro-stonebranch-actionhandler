@@ -111,13 +111,13 @@ class ActionHandlerDaemon(Daemon):
             auth=self.zmq_auth
         )]
 
-    def control(self, args):
+    def control(self, args) -> int:
         if args['start']:
-            self.start()
+            return self.start()
         elif args['stop']:
-            self.stop()
+            return self.stop()
         elif args['restart']:
-            self.restart()
+            return self.restart()
 
     @staticmethod
     def args() -> docopt:

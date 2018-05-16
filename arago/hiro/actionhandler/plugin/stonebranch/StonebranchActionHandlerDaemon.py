@@ -39,5 +39,4 @@ class StonebranchActionHandlerDaemon(ActionHandlerDaemon):
     def main() -> int:
         args = ActionHandlerDaemon.args()
         daemon = StonebranchActionHandlerDaemon(args['--pidfile'], debug=args['--debug'])
-        daemon.control(args)
-        return 0
+        return daemon.control(args)
