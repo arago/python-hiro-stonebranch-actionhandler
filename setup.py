@@ -62,7 +62,7 @@ distutils.core.setup(
         ),
         (
             '/etc/init.d/', [
-                'etc/init.d/hiro-winrm-actionhandler'
+                'etc/init.d/hiro-stonebranch-actionhandler'
             ],
         )
     ],
