@@ -20,7 +20,7 @@ New Tasks can be setup against an agent and/or agent-cluster or broadcast
 - [Install a list of requirements specified in a Requirements File.](https://packaging.python.org/tutorials/installing-packages/#requirements-files)
 - [Package project](https://packaging.python.org/tutorials/distributing-packages/#packaging-your-project)
 
-## Building with pax
+## Building with pex
 ```
 virtualenv pex
 ./pex/bin/pip install pex
