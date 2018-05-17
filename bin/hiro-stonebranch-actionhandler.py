@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import sys
 
 from arago.hiro.actionhandler.plugin.stonebranch.StonebranchActionHandlerDaemon import StonebranchActionHandlerDaemon
