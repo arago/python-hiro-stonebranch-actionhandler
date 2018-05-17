@@ -1,0 +1,32 @@
+- Capability:
+  - Name: ExecuteCommand
+    Description: Execute Linux Command via Stonebranch
+    Parameter:
+    - Name: instance
+      Description: Stonebranch instance to use as proxy
+      Default:
+    - Name: agent
+      Description: Name of the agent to run task on
+      Default:
+    - Name: agent_cluster
+      Description: Name of the agent cluster to run task on
+      Default:
+    - Name: agent_cluster_broadcast
+      Description: Name of the broadcast cluster to run task on
+      Default:
+    - Name: command
+      Description: Command to be executed
+      Default:
+    - Name: working_directory
+      Description: Optional working directory to change to before execution
+      Default:
+    - Name: success_exit_codes
+      Description: Exit codes to be assumed as success
+      Default: 0
+  Applicability:
+  - Priotity: 100
+    ModelFilter:
+    - Var:
+        Name: MachineClass
+        Mode: string
+        Value: Linux

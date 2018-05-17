@@ -7,7 +7,7 @@ if os.environ.get('USER', '') == 'vagrant':
 
 distutils.core.setup(
     name='arago-hiro-actionhandler-stonebranch',
-    version='0.1.0',
+    version='1.0.0',
     author='Johannes Harth',
     author_email='jharth@arago.co',
     description='Arago HIRO ActionHandler plugin for Stonebranch',
@@ -15,7 +15,7 @@ distutils.core.setup(
     url='https://github.com/arago/python-hiro-stonebranch-actionhandler',
     python_requires='>=3.4',
     classifiers=[
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 4 - Beta',
         'Topic :: Utilities',
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python :: 3',
@@ -42,5 +42,28 @@ distutils.core.setup(
     dependency_links=[
         'git+https://github.com/arago/python-arago-common.git@96c1618fc8ab861951930f768d02cb25e2adf9dd#egg=arago-common-base-2.1',
         'git+https://github.com/166MMX/python-arago-pyactionhandler.git@abd1f97975e64269f88940d9ecfebc07e4e76d20#egg=arago-pyactionhandler-2.5',
+    ],
+    scripts=[
+        'bin/hiro-stonebranch-actionhandler.py'
+    ],
+    data_files=[
+        (
+            '/opt/autopilot/conf/external_actionhandlers/',
+            [
+                'config/external_actionhandlers/stonebranch-actionhandler.conf',
+                'config/external_actionhandlers/stonebranch-actionhandler-log.conf'
+            ],
+        ),
+        (
+            '/opt/autopilot/conf/external_actionhandlers/capabilities/',
+            [
+                'config/external_actionhandlers/capabilities/stonebranch-actionhandler.yaml'
+            ],
+        ),
+        (
+            '/etc/init.d/', [
+                'etc/init.d/hiro-winrm-actionhandler'
+            ],
+        )
     ],
 )
