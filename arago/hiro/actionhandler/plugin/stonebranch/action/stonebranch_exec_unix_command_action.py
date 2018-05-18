@@ -41,7 +41,6 @@ class StonebranchExecUnixCommandAction(Action):
                 first = False
             else:
                 time.sleep(3)
-                del first
         task_instance.status = status
         # TODO
         # client.task_instance_info(task_instance)
