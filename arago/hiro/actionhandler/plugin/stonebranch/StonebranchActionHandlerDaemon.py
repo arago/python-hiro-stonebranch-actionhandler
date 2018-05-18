@@ -1,3 +1,5 @@
+import logging
+import os
 from configparser import ConfigParser
 
 from arago.pyactionhandler.capability import Capability
@@ -17,7 +19,14 @@ class StonebranchActionHandlerDaemon(ActionHandlerDaemon):
         return 'Stonebranch'
 
     def load_credentials(self):
+        logger = logging.getLogger('root')
         credentials = ConfigParser()
+        credentials_config_filename = '/opt/autopilot/conf/external_actionhandlers/%s-instances.conf' % self.short_name
+        if os.path.isfile(credentials_config_filename):
+            self.handler_config.read(credentials_config_filename)
+        else:
+            logger.warning("Missing or unreadable handler configuration file: %s" % credentials_config_filename)
+
         for section in credentials.sections():
             self.credentials[section] = StonebranchRestClient(StonebranchInstance(
                 host=credentials.get(section, 'host'),
