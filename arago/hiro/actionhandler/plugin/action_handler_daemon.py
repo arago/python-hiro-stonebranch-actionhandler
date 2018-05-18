@@ -13,8 +13,9 @@ from docopt import docopt
 
 
 class ActionHandlerDaemon(Daemon):
-    def __init__(self, pidfile, debug=False, nofork=False, debuglevel='DEBUG', uid='arago', gid='arago'):
-        super().__init__(pidfile, debug, nofork, debuglevel, uid, gid)
+    def __init__(self, args=None):
+        super().__init__(args['--pidfile'], debug=args['--debug'])
+        self.args = args  # type: docopt
         self.logging_config = None
         self.handler_config = None
         self.credentials = {}
