@@ -23,7 +23,10 @@ class StonebranchActionHandlerDaemon(ActionHandlerDaemon):
     def load_credentials(self):
         logger = logging.getLogger('root')
         credentials = ConfigParser()
-        credentials_config_filename = '/opt/autopilot/conf/external_actionhandlers/%s-instances.conf' % self.short_name
+        if '--instances-config-file' in self.args:
+            credentials_config_filename = self.args['--instances-config-file']
+        else:
+            credentials_config_filename = '/opt/autopilot/conf/external_actionhandlers/%s-instances.conf' % self.short_name
         if os.path.isfile(credentials_config_filename):
             credentials.read(credentials_config_filename)
         else:

@@ -24,14 +24,20 @@ class ActionHandlerDaemon(Daemon):
     def load_handler_config(self):
         logger = logging.getLogger('root')
         self.handler_config = ConfigParser()
-        handler_config_filename = '/opt/autopilot/conf/external_actionhandlers/%s-actionhandler.conf' % self.short_name
+        if '--handler-config-file' in self.args:
+            handler_config_filename = self.args['--handler-config-file']
+        else:
+            handler_config_filename = '/opt/autopilot/conf/external_actionhandlers/%s-actionhandler.conf' % self.short_name
         if os.path.isfile(handler_config_filename):
             self.handler_config.read(handler_config_filename)
         else:
             logger.warning("Missing or unreadable handler configuration file: %s" % handler_config_filename)
 
     def load_logging_config(self):
-        logging_config_filename = '/opt/autopilot/conf/external_actionhandlers/%s-actionhandler-log.conf' % self.short_name
+        if '--logging-config-file' in self.args:
+            logging_config_filename = self.args['--logging-config-file']
+        else:
+            logging_config_filename = '/opt/autopilot/conf/external_actionhandlers/%s-actionhandler-log.conf' % self.short_name
         if os.path.isfile(logging_config_filename):
             logging.config.fileConfig(logging_config_filename)
         else:
