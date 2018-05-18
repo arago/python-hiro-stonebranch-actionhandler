@@ -51,7 +51,8 @@ distutils.core.setup(
             '/opt/autopilot/conf/external_actionhandlers/',
             [
                 'config/external_actionhandlers/stonebranch-actionhandler.conf',
-                'config/external_actionhandlers/stonebranch-actionhandler-log.conf'
+                'config/external_actionhandlers/stonebranch-instances.conf',
+                'config/external_actionhandlers/stonebranch-actionhandler-log.conf',
             ],
         ),
         (
