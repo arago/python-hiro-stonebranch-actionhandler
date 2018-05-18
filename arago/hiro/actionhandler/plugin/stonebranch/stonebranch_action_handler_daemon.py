@@ -38,12 +38,8 @@ class StonebranchActionHandlerDaemon(ActionHandlerDaemon):
 
     @property
     def capabilities(self) -> dict:
-        self.credentials = ConfigParser()
-        self.credentials.sections()
-        self.credentials.keys()
-        client_repository = {}
         return {
-            "ExecuteCommand": Capability(StonebranchExecUnixCommandAction, client_repository=client_repository)
+            "ExecuteCommand": Capability(StonebranchExecUnixCommandAction, client_repository=self.credentials)
         }
 
     @staticmethod
