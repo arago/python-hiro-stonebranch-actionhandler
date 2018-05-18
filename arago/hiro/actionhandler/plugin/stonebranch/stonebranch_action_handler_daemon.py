@@ -27,7 +27,7 @@ class StonebranchActionHandlerDaemon(ActionHandlerDaemon):
         if os.path.isfile(credentials_config_filename):
             credentials.read(credentials_config_filename)
         else:
-            logger.warning("Missing or unreadable handler configuration file: %s" % credentials_config_filename)
+            logger.warning("Missing or unreadable instances configuration file: %s" % credentials_config_filename)
 
         for section in credentials.sections():
             self.credentials[section] = StonebranchRestClient(StonebranchInstance(
