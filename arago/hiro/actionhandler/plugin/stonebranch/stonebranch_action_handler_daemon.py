@@ -4,9 +4,11 @@ from configparser import ConfigParser
 
 from arago.pyactionhandler.capability import Capability
 
-from arago.hiro.actionhandler.plugin import ActionHandlerDaemon
-from arago.hiro.actionhandler.plugin.stonebranch import StonebranchRestClient, StonebranchInstance
-from arago.hiro.actionhandler.plugin.stonebranch.action import StonebranchExecUnixCommandAction
+from arago.hiro.actionhandler.plugin.action_handler_daemon import ActionHandlerDaemon
+from arago.hiro.actionhandler.plugin.stonebranch.action.stonebranch_exec_unix_command_action import \
+    StonebranchExecUnixCommandAction
+from arago.hiro.actionhandler.plugin.stonebranch.stonebranch_instance import StonebranchInstance
+from arago.hiro.actionhandler.plugin.stonebranch.stonebranch_rest_client import StonebranchRestClient
 
 
 class StonebranchActionHandlerDaemon(ActionHandlerDaemon):

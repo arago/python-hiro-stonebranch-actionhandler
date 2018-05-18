@@ -2,8 +2,11 @@ import logging
 import re
 import requests
 
-from arago.hiro.actionhandler.plugin.stonebranch import RestClient, StonebranchInstance, Task, TaskInstance, \
-    TaskInstanceState
+from arago.hiro.actionhandler.plugin.stonebranch.rest_client import RestClient
+from arago.hiro.actionhandler.plugin.stonebranch.stonebranch_instance import StonebranchInstance
+from arago.hiro.actionhandler.plugin.stonebranch.task import Task
+from arago.hiro.actionhandler.plugin.stonebranch.task_instance import TaskInstance
+from arago.hiro.actionhandler.plugin.stonebranch.task_instance_state import TaskInstanceState
 
 
 class StonebranchRestClient(RestClient):

@@ -1,4 +1,4 @@
-from arago.hiro.actionhandler.plugin.stonebranch import RestClient
+from arago.hiro.actionhandler.plugin.stonebranch.rest_client import RestClient
 
 
 class Task:

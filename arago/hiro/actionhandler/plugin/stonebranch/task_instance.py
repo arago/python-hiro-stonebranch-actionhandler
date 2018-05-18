@@ -1,4 +1,5 @@
-from arago.hiro.actionhandler.plugin.stonebranch import Task, TaskInstanceState
+from arago.hiro.actionhandler.plugin.stonebranch.task import Task
+from arago.hiro.actionhandler.plugin.stonebranch.task_instance_state import TaskInstanceState
 
 
 class TaskInstance:

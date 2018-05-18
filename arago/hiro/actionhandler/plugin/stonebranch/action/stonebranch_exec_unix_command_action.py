@@ -4,7 +4,9 @@ import uuid
 
 from arago.pyactionhandler.action import Action
 
-from arago.hiro.actionhandler.plugin.stonebranch import TaskInstance, Task, StonebranchRestClient
+from arago.hiro.actionhandler.plugin.stonebranch.stonebranch_rest_client import StonebranchRestClient
+from arago.hiro.actionhandler.plugin.stonebranch.task import Task
+from arago.hiro.actionhandler.plugin.stonebranch.task_instance import TaskInstance
 
 
 class StonebranchExecUnixCommandAction(Action):
