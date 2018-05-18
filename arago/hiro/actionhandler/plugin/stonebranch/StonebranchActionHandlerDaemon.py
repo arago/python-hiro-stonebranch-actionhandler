@@ -23,7 +23,7 @@ class StonebranchActionHandlerDaemon(ActionHandlerDaemon):
         credentials = ConfigParser()
         credentials_config_filename = '/opt/autopilot/conf/external_actionhandlers/%s-instances.conf' % self.short_name
         if os.path.isfile(credentials_config_filename):
-            self.handler_config.read(credentials_config_filename)
+            credentials.read(credentials_config_filename)
         else:
             logger.warning("Missing or unreadable handler configuration file: %s" % credentials_config_filename)
 
