@@ -31,3 +31,9 @@ virtualenv build
 
 ./pex/bin/pex "--python-shebang=/usr/bin/env python3" --no-index --find-links=wheelhouse arago-hiro-actionhandler-stonebranch --entry-point=arago.hiro.actionhandler.plugin.stonebranch.StonebranchActionHandlerDaemon:StonebranchActionHandlerDaemon.main --output-file=stonebranch-actionhandler.pex
 ```
+
+## Test
+```
+PYTHONPATH="$(pwd):$PYTHONPATH" venv/bin/python3 bin/hiro-stonebranch-actionhandler.py --handler-config-file=ah_test/stonebranch-actionhandler.conf --logging-config-file=ah_test/stonebranch-actionhandler-log.conf --instances-config-file=ah_test/stonebranch-instances.conf --debug start
+venv/bin/ah-client.py -u tcp://localhost:7292 --parameter instance = example --parameter agent = 'LINUX-AGNT0001' --parameter command = 'curl --help' a::b::c::d
+```
