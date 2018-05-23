@@ -46,6 +46,8 @@ class StonebranchRestClient(RestClient):
         if response.status_code == 200:
             match = re.match(pattern='Successfully created the (.+) task with id (.+).', string=response.text)
             task.id = match.group(2)
+        else:
+            self.logger.warning('Creating task failed')
         pass
 
     # https://www.stonebranch.com/confluence/display/UC64/Task+Web+Services#TaskWebServices-LaunchaTask
