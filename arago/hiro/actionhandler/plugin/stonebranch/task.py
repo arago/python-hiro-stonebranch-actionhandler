@@ -25,7 +25,9 @@ class Task:
         else:
             self.agent_cluster_broadcast = None
 
-        if 'command' in parameters:
+        if 'Command' in parameters:
+            self.command = parameters['Command']
+        elif 'command' in parameters:
             self.command = parameters['command']
         else:
             self.command = None

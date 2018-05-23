@@ -14,7 +14,7 @@
     - Name: agent_cluster_broadcast
       Description: Name of the broadcast cluster to run task on
       Mandatory: false
-    - Name: command
+    - Name: Command
       Description: Command to be executed
       Mandatory: true
     - Name: working_directory
