@@ -49,12 +49,13 @@ class ActionHandlerDaemon(Daemon):
 
     def init_logging(self):
         if self.debug:
-            logging.getLogger('root').setLevel(logging.DEBUG)
+            root_logger = logging.getLogger('root')
+            root_logger.setLevel(logging.DEBUG)
             ch = logging.StreamHandler()
             ch.setLevel(logging.DEBUG)
             formatter = logging.Formatter("%(asctime)s [%(levelname)s] %(message)s", "%Y-%m-%d %H:%M:%S")
             ch.setFormatter(formatter)
-            self.logger.addHandler(ch)
+            root_logger.addHandler(ch)
             self.logger.info("Logging also to console")
 
     def pre_daemonize(self):
