@@ -19,7 +19,7 @@ class StonebranchRestClient(RestClient):
         pass
 
     # https://www.stonebranch.com/confluence/display/UC64/Linux+Unix+Task+Web+Services#LinuxUnixTaskWebServices-CreateaLinux%2FUnixTask
-    def task_create(self, task: Task):
+    def task_create(self, task: Task) -> requests.models.Response:
         self.logger.info('Creating new task')
 
         json = {
@@ -48,7 +48,7 @@ class StonebranchRestClient(RestClient):
             task.id = match.group(2)
         else:
             self.logger.warning('Creating task failed')
-        pass
+        return response
 
     # https://www.stonebranch.com/confluence/display/UC64/Task+Web+Services#TaskWebServices-LaunchaTask
     def task_launch(self, task: Task) -> TaskInstance:
