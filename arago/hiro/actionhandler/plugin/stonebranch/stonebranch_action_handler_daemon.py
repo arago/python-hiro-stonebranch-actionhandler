@@ -12,6 +12,8 @@ from arago.hiro.actionhandler.plugin.stonebranch.stonebranch_rest_client import 
 
 
 class StonebranchActionHandlerDaemon(ActionHandlerDaemon):
+    logger = logging.getLogger('root')
+
     @property
     def short_name(self) -> str:
         return 'stonebranch'
@@ -21,7 +23,6 @@ class StonebranchActionHandlerDaemon(ActionHandlerDaemon):
         return 'Stonebranch'
 
     def load_credentials(self):
-        logger = logging.getLogger('root')
         credentials = ConfigParser()
         if '--instances-config-file' in self.args:
             credentials_config_filename = self.args['--instances-config-file']
@@ -30,7 +31,7 @@ class StonebranchActionHandlerDaemon(ActionHandlerDaemon):
         if os.path.isfile(credentials_config_filename):
             credentials.read(credentials_config_filename)
         else:
-            logger.warning("Missing or unreadable instances configuration file: %s" % credentials_config_filename)
+            self.logger.warning("Missing or unreadable instances configuration file: %s" % credentials_config_filename)
 
         for section in credentials.sections():
             self.credentials[section] = StonebranchRestClient(StonebranchInstance(

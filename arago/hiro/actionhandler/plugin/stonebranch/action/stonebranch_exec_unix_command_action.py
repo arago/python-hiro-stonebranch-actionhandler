@@ -10,6 +10,8 @@ from arago.hiro.actionhandler.plugin.stonebranch.task_instance import TaskInstan
 
 
 class StonebranchExecUnixCommandAction(Action):
+    logger = logging.getLogger('StonebranchExecUnixCommandAction')
+
     def __init__(self, num, node, zmq_info, timeout, parameters, client_repository):
         super().__init__(num, node, zmq_info, timeout, parameters)
         self.client_repository = client_repository
@@ -28,6 +30,7 @@ class StonebranchExecUnixCommandAction(Action):
 
     @staticmethod
     def exec_task(client: StonebranchRestClient, parameters: dict) -> TaskInstance:
+        logger = StonebranchExecUnixCommandAction.logger
         task = Task(client=client, name='HIRO action %s' % uuid.uuid1(), parameters=parameters)
         client.task_create(task)
         task_instance = client.task_launch(task)
@@ -36,7 +39,7 @@ class StonebranchExecUnixCommandAction(Action):
         first = True
         while not (status in final_status):
             status = client.task_instance_status(task_instance)
-            logging.debug(status)
+            logger.debug(status)
             if first:
                 first = False
             else:

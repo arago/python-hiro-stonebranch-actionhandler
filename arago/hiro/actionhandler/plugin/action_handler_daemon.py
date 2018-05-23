@@ -13,6 +13,8 @@ from docopt import docopt
 
 
 class ActionHandlerDaemon(Daemon):
+    logger = logging.getLogger('ActionHandlerDaemon')
+
     def __init__(self, args=None):
         super().__init__(args['--pidfile'], debug=args['--debug'])
         self.args = args  # type: docopt
@@ -22,7 +24,6 @@ class ActionHandlerDaemon(Daemon):
         self.handlers = []
 
     def load_handler_config(self):
-        logger = logging.getLogger('root')
         self.handler_config = ConfigParser()
         if '--handler-config-file' in self.args:
             handler_config_filename = self.args['--handler-config-file']
@@ -31,7 +32,7 @@ class ActionHandlerDaemon(Daemon):
         if os.path.isfile(handler_config_filename):
             self.handler_config.read(handler_config_filename)
         else:
-            logger.warning("Missing or unreadable handler configuration file: %s" % handler_config_filename)
+            self.logger.warning("Missing or unreadable handler configuration file: %s" % handler_config_filename)
 
     def load_logging_config(self):
         if '--logging-config-file' in self.args:
@@ -47,15 +48,14 @@ class ActionHandlerDaemon(Daemon):
         pass
 
     def init_logging(self):
-        logger = logging.getLogger('root')
         if self.debug:
-            logger.setLevel(logging.DEBUG)
+            self.logger.setLevel(logging.DEBUG)
             ch = logging.StreamHandler()
             ch.setLevel(logging.DEBUG)
             formatter = logging.Formatter("%(asctime)s [%(levelname)s] %(message)s", "%Y-%m-%d %H:%M:%S")
             ch.setFormatter(formatter)
-            logger.addHandler(ch)
-            logger.info("Logging also to console")
+            self.logger.addHandler(ch)
+            self.logger.info("Logging also to console")
 
     def pre_daemonize(self):
         self.load_logging_config()
@@ -68,25 +68,23 @@ class ActionHandlerDaemon(Daemon):
     def run(self):
         self.handlers = self.init_handlers()
 
-        logger = logging.getLogger('root')
         gevent.hub.signal(signal.SIGINT, self.exit_gracefully)
         gevent.hub.signal(signal.SIGTERM, self.exit_gracefully)
-        logger.info("Starting handlers")
+        self.logger.info("Starting handlers")
         greenlets = [
             handler.run() for handler in self.handlers
         ]
-        logger.info("Starting handlers finished")
+        self.logger.info("Starting handlers finished")
         gevent.idle()
         gevent.joinall(greenlets)
-        logger.info("Exiting")
+        self.logger.info("Exiting")
         sys.exit(0)
 
     def exit_gracefully(self):
-        logger = logging.getLogger('root')
-        logger.info("Stopping handlers")
+        self.logger.info("Stopping handlers")
         for handler in self.handlers:
             handler.shutdown()
-        logger.info("Stopping handlers finished")
+        self.logger.info("Stopping handlers finished")
 
     @property
     def zmq_auth(self) -> tuple:

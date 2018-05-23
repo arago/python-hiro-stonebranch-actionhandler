@@ -13,6 +13,7 @@ clientRepository['prototype'] = StonebranchRestClient(StonebranchInstance(
 
 def test():
     logging.basicConfig(level=logging.DEBUG)
+    logger = logging.getLogger('test')
 
     client = clientRepository['prototype']
     StonebranchExecUnixCommandAction.exec_task(client, {
@@ -21,7 +22,7 @@ def test():
         'command': 'true',
     })
 
-    logging.info('done')
+    logger.info('done')
 
 
 test()

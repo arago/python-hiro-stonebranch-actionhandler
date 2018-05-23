@@ -10,6 +10,8 @@ from arago.hiro.actionhandler.plugin.stonebranch.task_instance_state import Task
 
 
 class StonebranchRestClient(RestClient):
+    logger = logging.getLogger('StonebranchRestClient')
+
     def __init__(self, instance: StonebranchInstance):
         self.session = requests.Session()
         self.instance = instance
@@ -18,7 +20,7 @@ class StonebranchRestClient(RestClient):
 
     # https://www.stonebranch.com/confluence/display/UC64/Linux+Unix+Task+Web+Services#LinuxUnixTaskWebServices-CreateaLinux%2FUnixTask
     def task_create(self, task: Task):
-        logging.info('Creating new task')
+        self.logger.info('Creating new task')
 
         json = {
             'type': 'taskUnix',
@@ -48,10 +50,10 @@ class StonebranchRestClient(RestClient):
 
     # https://www.stonebranch.com/confluence/display/UC64/Task+Web+Services#TaskWebServices-LaunchaTask
     def task_launch(self, task: Task) -> TaskInstance:
-        logging.info('Launching new task instance')
+        self.logger.info('Launching new task instance')
         instance = TaskInstance(task)
         instance.state = TaskInstanceState.LAUNCH_PENDING
-        logging.debug('Task launch pending')
+        self.logger.debug('Task launch pending')
         response = self.session.post(
             url='https://%s/resources/task/ops-task-launch' % self.instance.authority,
             json={'name': task.name, },
@@ -62,23 +64,23 @@ class StonebranchRestClient(RestClient):
             if response_json['success']:
                 instance.state = TaskInstanceState.LAUNCH_SUCCESS
                 instance.id = response_json['sysId']
-                logging.debug('Task launch success')
+                self.logger.debug('Task launch success')
             else:
                 instance.message = response_json['info']
                 instance.state = TaskInstanceState.LAUNCH_FAILED
-                logging.warning('Task launch failed')
+                self.logger.warning('Task launch failed')
 
             if response_json['errors'] != '':
                 instance.message = response_json['errors']
         else:
             instance.state = TaskInstanceState.LAUNCH_FAILED
-            logging.warning('Task launch failed')
+            self.logger.warning('Task launch failed')
 
         return instance
 
     # https://www.stonebranch.com/confluence/display/UC64/Task+Instance+Web+Services#TaskInstanceWebServices-TaskInstanceStatusTypes
     def task_instance_status(self, instance: TaskInstance):
-        logging.info('Querying task instance status')
+        self.logger.info('Querying task instance status')
         response = self.session.post(
             url='https://%s/resources/taskinstance/list' % self.instance.authority,
             json={'sysId': instance.id, },
@@ -88,12 +90,12 @@ class StonebranchRestClient(RestClient):
             response_json = response.json()
             return response_json[0]['status']
         else:
-            logging.warning('Querying task instance status failed')
+            self.logger.warning('Querying task instance status failed')
             return 'UNKNOWN'
 
     def task_instance_info(self, instance: TaskInstance):
         """Non functional since there is no documented REST end point for it yet"""
-        logging.info('Querying task instance info')
+        self.logger.info('Querying task instance info')
         response = self.session.get(
             url='https://%s/resources/taskinstance/status' % self.instance.authority,
             params={'id': instance.id},
@@ -105,7 +107,7 @@ class StonebranchRestClient(RestClient):
 
     # https://www.stonebranch.com/confluence/display/UC64/Task+Instance+Web+Services#TaskInstanceWebServices-RetrieveTaskInstanceOutput
     def task_instance_output(self, instance: TaskInstance):
-        logging.info('Querying task instance output')
+        self.logger.info('Querying task instance output')
         response = self.session.get(
             url='https://%s/resources/taskinstance/retrieveoutput' % self.instance.authority,
             params={'taskinstanceid': instance.id},
@@ -128,14 +130,14 @@ class StonebranchRestClient(RestClient):
             instance.stdOut = response_json[std_out_idx]['outputData']
             instance.stdErr = response_json[std_err_idx]['outputData']
         else:
-            logging.warning('Querying task instance output failed')
+            self.logger.warning('Querying task instance output failed')
 
     # https://www.stonebranch.com/confluence/display/UC64/Task+Web+Services#TaskWebServices-DeleteaTask
     def task_delete(self, task: Task):
-        logging.info('Deleting task')
+        self.logger.info('Deleting task')
         response = self.session.delete(
             url='https://%s/resources/task' % self.instance.authority,
             params={'taskid': task.id},
         )
         if response.status_code != 200:
-            logging.warning('Deleting task failed')
+            self.logger.warning('Deleting task failed')
