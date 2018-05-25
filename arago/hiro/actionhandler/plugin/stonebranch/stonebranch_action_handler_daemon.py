@@ -1,10 +1,12 @@
 import logging
 import os
+import sys
 from configparser import ConfigParser
 
 from arago.pyactionhandler.capability import Capability
 
 from arago.hiro.actionhandler.plugin.action_handler_daemon import ActionHandlerDaemon
+from arago.hiro.actionhandler.plugin.docopt_builder import DocoptBuilder
 from arago.hiro.actionhandler.plugin.stonebranch.action.stonebranch_exec_unix_command_action import \
     StonebranchExecUnixCommandAction
 from arago.hiro.actionhandler.plugin.stonebranch.stonebranch_instance import StonebranchInstance
@@ -12,15 +14,17 @@ from arago.hiro.actionhandler.plugin.stonebranch.stonebranch_rest_client import 
 
 
 class StonebranchActionHandlerDaemon(ActionHandlerDaemon):
+    SHORT_NAME = 'stonebranch'
+    DISPLAY_NAME = 'Stonebranch'
     logger = logging.getLogger('root')
 
     @property
     def short_name(self) -> str:
-        return 'stonebranch'
+        return self.SHORT_NAME
 
     @property
     def display_name(self) -> str:
-        return 'Stonebranch'
+        return self.DISPLAY_NAME
 
     def load_credentials(self):
         credentials = ConfigParser()
@@ -47,7 +51,16 @@ class StonebranchActionHandlerDaemon(ActionHandlerDaemon):
         }
 
     @staticmethod
+    def docopt_builder(builder=DocoptBuilder()) -> DocoptBuilder:
+        builder = ActionHandlerDaemon.docopt_builder(builder)
+        builder.options.append('--instances-config-file=FILE\tbaz [default: /opt/autopilot/conf/external_actionhandlers/{short_name}-actionhandler-log.conf]')
+        return builder
+
+    @staticmethod
     def main() -> int:
-        args = ActionHandlerDaemon.args()
+        args = StonebranchActionHandlerDaemon.docopt_builder().build(
+            program_name=os.path.basename(sys.argv[0]),
+            short_name=StonebranchActionHandlerDaemon.SHORT_NAME
+        )
         daemon = StonebranchActionHandlerDaemon(args)
         return daemon.control(args)

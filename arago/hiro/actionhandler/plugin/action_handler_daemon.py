@@ -11,6 +11,8 @@ from arago.pyactionhandler.handler import SyncHandler
 from arago.pyactionhandler.worker_collection import WorkerCollection
 from docopt import docopt
 
+from arago.hiro.actionhandler.plugin.docopt_builder import DocoptBuilder
+
 
 class ActionHandlerDaemon(Daemon):
     logger = logging.getLogger('ActionHandlerDaemon')
@@ -132,14 +134,13 @@ class ActionHandlerDaemon(Daemon):
             return self.restart()
 
     @staticmethod
-    def args() -> docopt:
-        usage = """Usage:
-  {progname} [options] (start|stop|restart)
-  
-Options:
-  --debug            do not run as daemon and log to stderr
-  --pidfile=PIDFILE  Specify pid file [default: /var/run/{progname}.pid]
-  -h --help          Show this help screen
-        """.format(progname=os.path.basename(sys.argv[0]))
-
-        return docopt(usage)  # see http://docopt.org
+    def docopt_builder(builder=DocoptBuilder()) -> DocoptBuilder:
+        builder.usages.append('{program_name} [options] (start|stop|restart)')
+        builder.options.append('--debug\tdo not run as daemon and log to stderr')
+        builder.options.append('--pidfile=PIDFILE\tSpecify pid file [default: /var/run/{short_name}.pid]')
+        builder.options.append('--handler-config-file=FILE\tfoo [default: '
+                               '/opt/autopilot/conf/external_actionhandlers/{short_name}-actionhandler.conf]')
+        builder.options.append('--logging-config-file=FILE\tbar [default: '
+                               '/opt/autopilot/conf/external_actionhandlers/{short_name}-actionhandler-log.conf]')
+        builder.options.append('-h --help\tShow this help screen')
+        return builder
