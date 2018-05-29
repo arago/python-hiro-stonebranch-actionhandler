@@ -42,7 +42,7 @@ class ActionHandlerDaemon(Daemon):
         else:
             logging_config_filename = '/opt/autopilot/conf/external_actionhandlers/%s-actionhandler-log.conf' % self.short_name
         if os.path.isfile(logging_config_filename):
-            logging.config.fileConfig(logging_config_filename)
+            logging.config.fileConfig(logging_config_filename, disable_existing_loggers=False)
         else:
             print("Missing or unreadable logging configuration file: %s" % logging_config_filename, file=sys.stderr)
 
