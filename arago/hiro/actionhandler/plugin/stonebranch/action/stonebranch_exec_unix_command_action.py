@@ -18,11 +18,11 @@ class ActionResult:
 
 
 class StonebranchExecUnixCommandAction(Action):
-    logger = logging.getLogger('StonebranchExecUnixCommandAction')
 
     def __init__(self, num, node, zmq_info, timeout, parameters, client_repository):
         super().__init__(num, node, zmq_info, timeout, parameters)
         self.client_repository = client_repository
+        self.logger = logging.getLogger(__name__)
 
     def __call__(self):
         instance_name = self.parameters['instance']
@@ -46,7 +46,7 @@ class StonebranchExecUnixCommandAction(Action):
 
     @staticmethod
     def exec_task(client: StonebranchRestClient, parameters: dict) -> ActionResult:
-        logger = StonebranchExecUnixCommandAction.logger
+        logger = logging.getLogger(__name__)
         task = Task(client=client, name='HIRO action %s' % uuid.uuid1(), parameters=parameters)
         action_result = ActionResult(task)
         task_response = client.task_create(task)

@@ -15,7 +15,6 @@ from arago.hiro.actionhandler.plugin.docopt_builder import DocoptBuilder
 
 
 class ActionHandlerDaemon(Daemon):
-    logger = logging.getLogger('ActionHandlerDaemon')
 
     def __init__(self, args=None):
         super().__init__(args['--pidfile'], debug=args['--debug'])
@@ -24,6 +23,7 @@ class ActionHandlerDaemon(Daemon):
         self.handler_config = None
         self.credentials = {}
         self.handlers = []
+        self.logger = logging.getLogger(__name__)
 
     def load_handler_config(self):
         self.handler_config = ConfigParser()

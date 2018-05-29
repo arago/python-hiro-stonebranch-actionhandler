@@ -16,7 +16,10 @@ from arago.hiro.actionhandler.plugin.stonebranch.stonebranch_rest_client import 
 class StonebranchActionHandlerDaemon(ActionHandlerDaemon):
     SHORT_NAME = 'stonebranch'
     DISPLAY_NAME = 'Stonebranch'
-    logger = logging.getLogger('root')
+
+    def __init__(self, args=None):
+        super().__init__(args)
+        self.logger = logging.getLogger(__name__)
 
     @property
     def short_name(self) -> str:

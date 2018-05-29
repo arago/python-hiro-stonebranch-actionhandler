@@ -10,12 +10,12 @@ from arago.hiro.actionhandler.plugin.stonebranch.task_instance_state import Task
 
 
 class StonebranchRestClient(RestClient):
-    logger = logging.getLogger('StonebranchRestClient')
 
     def __init__(self, instance: StonebranchInstance):
         self.session = requests.Session()
         self.instance = instance
         self.session.auth = (instance.username, instance.password)
+        self.logger = logging.getLogger(__name__)
         pass
 
     # https://www.stonebranch.com/confluence/display/UC64/Linux+Unix+Task+Web+Services#LinuxUnixTaskWebServices-CreateaLinux%2FUnixTask
