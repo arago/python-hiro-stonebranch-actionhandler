@@ -3,6 +3,7 @@ import logging
 import time
 import uuid
 
+import gevent
 from arago.pyactionhandler.action import Action
 
 from arago.hiro.actionhandler.plugin.stonebranch.stonebranch_rest_client import StonebranchRestClient
@@ -73,7 +74,7 @@ class StonebranchExecUnixCommandAction(Action):
             if first:
                 first = False
             else:
-                time.sleep(3)
+                gevent.sleep(3)
         task_instance.status = status
         if timeout_occurred:
             action_result.message = 'Task execution timed out occurred after %s' % datetime.timedelta(seconds=timeout)
