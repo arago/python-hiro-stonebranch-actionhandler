@@ -27,7 +27,7 @@ virtualenv pex
 
 virtualenv build
 ./build/bin/pip install --upgrade pip wheel
-./build/bin/pip wheel --wheel-dir=./wheelhouse --process-dependency-links git+https://github.com/arago/python-hiro-stonebranch-actionhandler.git#egg=arago-hiro-actionhandler-stonebranch
+./build/bin/pip wheel --wheel-dir=./wheelhouse --process-dependency-links gevent==1.2.2 git+https://github.com/arago/python-hiro-stonebranch-actionhandler.git#egg=arago-hiro-actionhandler-stonebranch
 
 ./pex/bin/pex "--python-shebang=/usr/bin/env python3" --no-index --find-links=wheelhouse arago-hiro-actionhandler-stonebranch --entry-point=arago.hiro.actionhandler.plugin.stonebranch.StonebranchActionHandlerDaemon:StonebranchActionHandlerDaemon.main --output-file=stonebranch-actionhandler.pex
 ```
