@@ -8,7 +8,7 @@ greenlet==0.4.13
 idna==2.6
 protobuf==3.5.2.post1
 pyzmq==17.0.0
-requests==2.18.4
+requests==2.20.0
 six==1.11.0
-urllib3==1.22
+urllib3==1.23
 zmq==0.0.0
